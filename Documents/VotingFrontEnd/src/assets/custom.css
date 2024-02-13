@@ -1,0 +1,40 @@
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+  color: white;
+}
+body {
+  overflow: hidden;
+}
+#root {
+  background-color: rgb(26, 31, 45);
+  height: 100vh;
+}
+nav.navbar {
+  /* position: fixed; */
+  /* width: 100%; */
+}
+.heading-login {
+  background: rgba(0, 0, 0, 0.397);
+}
+.formLogin {
+  height: 420px;
+  width: 760px;
+  top: 55%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  /* background-color: blue; */
+}
+.formLogin > form > .input-login {
+  width: 90%;
+}
+.formLogin > form > .input-login > input {
+  color: black;
+  padding: 10px 1em;
+  width: 60%;
+}
+footer.footer {
+  background-color: rgb(90, 90, 90);
+  width: 100%;
+}
