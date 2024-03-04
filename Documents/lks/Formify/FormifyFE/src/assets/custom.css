@@ -1,0 +1,47 @@
+#root {
+  background: rgb(49, 49, 49);
+  min-height: 100vh;
+  color: white;
+}
+
+.form-container {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  /* background: red; */
+  width: 55%;
+  height: 65%;
+}
+
+.form-login {
+  margin: auto 8em;
+}
+
+.input-login {
+  padding: 1em;
+  /* margin: auto 8rem; */
+  justify-content: space-between;
+}
+.input-login > input {
+  width: 65%;
+  padding: 0.5rem 1rem;
+}
+
+* {
+  /* border: greenyellow solid 1px; */
+}
+.create-form-input {
+  width: 100%;
+}
+.create-form-input > input,
+.create-form-input > textarea {
+  width: 80%;
+}
+.form-input-checkbox {
+  width: 30%;
+}
+textarea {
+  height: 150px;
+  resize: none;
+}
