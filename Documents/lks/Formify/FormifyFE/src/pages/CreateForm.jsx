@@ -3,6 +3,7 @@ import { AuthGuard } from "../Auth";
 import Navbar from "../components/Navbar";
 import { useAuth, useAxios } from "../hooks";
 import { useNavigate } from "react-router-dom";
+import Alert from "../shared/Alert";
 
 function CreateForm() {
   const [title, setTitle] = useState();
@@ -11,6 +12,8 @@ function CreateForm() {
   const [desc, setDesc] = useState();
   const [limitOne, setLimitOne] = useState();
   const navigate = useNavigate();
+
+  const [alert, setAlert] = useState({});
 
   const auth = useAuth();
   const axios = useAxios();
@@ -22,18 +25,19 @@ function CreateForm() {
     e.preventDefault();
 
     axios
-      .post("/forms?token=" + auth.user.user.api_token, {
+      .post("/forms?", {
         name: title,
         slug,
         allowed_domains: allowed,
         description: desc,
-        limit_one_response: limitOne, 
+        limit_one_response: limitOne,
       })
       .then((res) => {
         navigate("/");
       })
       .catch((err) => {
-        console.log(err);
+        console.log(Object.keys(err.response.data.errors));
+        setAlert(err.response.data.errors);
       });
   }
 
@@ -94,6 +98,10 @@ function CreateForm() {
               Submit
             </button>
           </form>
+          {alert &&
+            Object.keys(alert).map((item, i) => (
+              <Alert message={alert[item][0]} color="danger" key={i} />
+            ))}
         </div>
       </div>
     </AuthGuard>

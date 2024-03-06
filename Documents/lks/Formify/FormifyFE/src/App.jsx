@@ -6,6 +6,7 @@ import Home from "./pages/Home";
 import { AuthProvider } from "./Auth";
 import CreateForm from "./pages/CreateForm";
 import DetailForms from "./pages/DetailForms";
+import Logout from "./pages/Logout";
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/logout" element={<Logout />} />
           <Route path="/create-form" element={<CreateForm />} />
           <Route path="/forms/:formSlug" element={<DetailForms />} />
         </Routes>

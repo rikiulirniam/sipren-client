@@ -24,7 +24,7 @@ function Login() {
       .then((res) => {
         auth.setUser(res.data);
         localStorage.setItem("token", res.data.user.accessToken);
-        navigate("/");
+        location.href = "/"
       })
       .catch((err) => {
         setAlert({ color: "danger", message: err.response.data.message });

@@ -12,10 +12,9 @@ function DetailForms() {
 
   useEffect(() => {
     axios
-      .get(`/forms/${formSlug}?token=${auth?.user.user.api_token}`)
+      .get(`/forms/${formSlug}`)
       .then((res) => {
         setFormDetail(res.data.form);
-        console.log(res.data.form); // Cetak formDetail di sini
       })
       .catch((err) => {
         console.log(err.response.data.message);

@@ -5,21 +5,18 @@ import { useAuth, useAxios } from "../hooks";
 import { Link, useNavigate } from "react-router-dom";
 import CreateForm from "./CreateForm";
 function Home() {
-  const auth = useAuth();
   const axios = useAxios();
   const [forms, setForms] = useState([]);
   const navigate = useNavigate();
   useEffect(() => {
     axios
-      .get(`/forms?token=${auth?.user.accessToken}`)
+      .get(`/forms`)
       .then((res) => {
         setForms(res.data.forms);
       })
       .catch((err) => {
         console.log(err);
       });
-
-    console.log(auth.user);
   }, []);
 
   return (
