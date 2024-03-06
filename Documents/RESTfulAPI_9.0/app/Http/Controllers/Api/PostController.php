@@ -4,7 +4,7 @@ namespace App\Http\Controllers\api;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Http\Requests\PostRequest;
+// use App\Http\Requests\PostRequest;
 use App\Models\Post;
 
 use App\Http\Resources\PostResource;
@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Storage;
 class PostController extends Controller
 {
     public function index(){
-        $posts = Post::latest()->paginate(5);
+        $posts = Post::orderBy('id', 'asc')->get();
 
         return new PostResource(true, 'List Data Post', $posts);
     }
@@ -29,7 +29,9 @@ class PostController extends Controller
         ]);
 
         if($validator->fails()){
-            return response()->json($validator->errors(), 422);
+            return response()->json(['status' => false,
+             'message'=>'Failed inputing data.',
+             'Errors'=> $validator->errors()], 422);
         }
 
         $image = $request->file('image');
@@ -51,8 +53,10 @@ class PostController extends Controller
         return new PostResource(true, "Data Successfully Created", $post);
     }
 
-    public function show(Post $post){
-        return new PostResource(true, "Data Showed", $post);
+    public function show(string $id){
+        $post = Post::find($id);
+        if($post){return new PostResource(true, "Data Showed", $post);}
+        else{return new PostResource(false, "Data Not Found", NULL);}
     }
 
     public function update(Request $request, Post $post){
@@ -60,11 +64,12 @@ class PostController extends Controller
             'title' => 'required',
             'content' => 'required',
         ]);
-
         if($validator->fails()){
-            return response()->json($validator->errors(), 422);
+            return response()->json(['status' => false,
+             'message'=>'Failed Updating data.',
+             'Errors'=> $validator->errors()], 402);
         }
-        
+
         if($request->hasFile('image')){
 
             $image = $request->file('image');
@@ -84,15 +89,19 @@ class PostController extends Controller
                 'content' => $request->content,
             ]);
         }
-
         return new PostResource(true, 'Data Updated!', $post);
     }
 
-    public function destroy(Post $post){
-        Storage::delete('public/post/' . $post->image);
+    public function destroy(string $id){
+        $post = Post::find($id);
 
+    if($post){
+        Storage::delete('public/post/' . $post->image);
         $post->delete();
 
         return new PostResource(true,'Data sucessfully deleted.',NULL);
+    } else{
+        return new PostResource(false,'Data Not Found.',NULL);
+    }
     }
 }

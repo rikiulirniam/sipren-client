@@ -28,22 +28,23 @@ function Login() {
       })
       .then((res) => {
         auth.setUser(res.data);
-        navigate("/");
+        return navigate("/");
       })
       .catch((err) => {
         setAlert({ color: "danger", message: err.response.data.message });
       });
   };
+  
   return (
     <>
-      <Navbar />
+      {/* <Navbar /> */}
       <div className="container d-flex flex-column justify-content-center align-items-center py-3">
         <div className="formLogin border position-absolute ">
           <h1 className="heading-login px-5 py-3 fw-bold">Login Page</h1>
           <form onSubmit={handleSubmit} className="p-5 d-flex flex-column">
             <div className="input-login d-flex justify-content-between align-items-center my-2">
               <label className="mx-5" htmlFor="email">
-                Email{" "}
+                Email
               </label>
               <input
                 id="email"
@@ -56,7 +57,7 @@ function Login() {
             </div>
             <div className="input-login d-flex justify-content-between align-items-center my-2">
               <label className="mx-5" htmlFor="pass">
-                Password{" "}
+                Password
               </label>
               <input
                 id="pass"
@@ -69,10 +70,7 @@ function Login() {
             </div>
             {alert.message && <Alert {...alert} />}
 
-            <button
-              type="submit"
-              className="btn btn-danger align-self-end px-4 py-2 mx-5 my-4"
-            >
+            <button className="btn btn-danger align-self-end  px-4 py-2 mx-5 my-2">
               Login
             </button>
           </form>

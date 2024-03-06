@@ -18,6 +18,7 @@ function Login() {
       .then((res) => {
         auth.setUser(res.user);
         console.log(res.data);
+        localStorage.setItem("token", res.data.user.token);
       });
   };
   return (

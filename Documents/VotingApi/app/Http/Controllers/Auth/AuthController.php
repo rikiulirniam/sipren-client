@@ -61,6 +61,10 @@ class AuthController extends Controller
                 'message' => 'Invalid Token',
             ]);
         }
+        Auth::guard('api')->user()->deleteToken();
+        return response()->json([
+            'message' => 'Logout Success',
+        ]);
         
     }
 

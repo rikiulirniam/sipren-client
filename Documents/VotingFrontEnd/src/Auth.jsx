@@ -1,13 +1,15 @@
 import { createContext, useContext, useState } from "react";
 import { Navigate } from "react-router-dom";
+import App from "./App";
 
 export const AuthContext = createContext({});
 
-export function AuthProvider() {
+export function AuthProvider({ children }) {
   const [user, setUser] = useState();
-
   return (
-    <AuthContext.Provider value={{ user, setUser }}></AuthContext.Provider>
+    <AuthContext.Provider value={{ user, setUser }}>
+      {children}
+    </AuthContext.Provider>
   );
 }
 
