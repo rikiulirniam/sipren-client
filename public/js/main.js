@@ -19,8 +19,8 @@ if (statusContent) {
 
 setInterval(() => {
     const date = new Date();
-    document.getElementById('timestamp').innerHTML = `${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`;
-    document.getElementById('date').innerHTML = `${date.getDate()}-${date.getMonth()}-${date.getFullYear()}`;
+    // document.getElementById('timestamp').innerHTML = `${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`;
+    // document.getElementById('date').innerHTML = `${date.getDate()}-${date.getMonth()}-${date.getFullYear()}`;
 }, 1000);
 
 if (titleMatter && descriptionMatter) {

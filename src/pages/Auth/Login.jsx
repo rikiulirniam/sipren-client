@@ -1,15 +1,40 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { setEncryptedData, useAuth, useAxios } from "../../utils/Provider";
+import Swal from "sweetalert2";
 
 function Login() {
+  const axios = useAxios();
   const navigate = useNavigate();
-  function handleSubmit() {
-    navigate("/dashboard");
+
+  function handleSubmit(e) {
+    e.preventDefault();
+
+    axios
+      .post("/auth/login", {
+        username: e.target.username.value,
+        password: e.target.password.value,
+      })
+      .then((res) => {
+        setEncryptedData("token", res.data.accessToken);
+        setEncryptedData("user", res.data.user); // simpan user langsung
+        navigate("/dashboard");
+      })
+      .catch((err) => {
+        console.log(err);
+        Swal.fire({
+          title: "Error!",
+          text: err.response.data.message,
+          icon: "error",
+          confirmButtonText: "Tutup",
+        });
+      });
   }
+
   return (
-    <div className="container min-vh-100 flex-column">
+    <div className="w-full h-screen flex flex-col justify-center items-center ">
       <div id="logo">
-        <img src="/images/logo.png" alt="Ini Logo" style={{ width: "200px" }} />
+        <img src="/images/logo.png" alt="Ini Logo" style={{ width: "10em" }} />
       </div>
 
       <div className="main-text">
@@ -74,6 +99,7 @@ function Login() {
             className="px-3"
             placeholder="Password"
             name="password"
+            autoComplete="password"
           />
         </div>
 
