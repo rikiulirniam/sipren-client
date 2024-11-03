@@ -30,8 +30,8 @@ function Navbar() {
           </h3>
           <div>
             <div className="user">
-              <p>{auth.user.username}</p>
-              <span>{auth.user.level == 1 ? "Admin" : "Guru TJKT"}</span>
+              <p>{auth.user.level ? auth.user.username : auth.user.nama}</p>
+              <span>{auth.user.level? "Admin" : "Guru"}</span>
             </div>
             <button>
               <svg

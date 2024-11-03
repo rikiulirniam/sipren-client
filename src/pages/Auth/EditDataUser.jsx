@@ -4,6 +4,7 @@ import Sidebar from "../../components/Sidebar";
 import { AuthGuard } from "../../utils/AuthGuard";
 import { useEffect, useState } from "react";
 import { useAxios } from "../../utils/Provider";
+import Swal from "sweetalert2";
 
 export const EditDataUser = () => {
   const { id } = useParams();
@@ -11,45 +12,70 @@ export const EditDataUser = () => {
   const [currentUser, setCurrentUser] = useState(null);
   const [role, setRole] = useState("0"); // State untuk menyimpan nilai role
 
+  const pathname = window.location.pathname;
+
   useEffect(() => {
-    axios
-      .get(`/users/${id}`)
-      .then((res) => {
-        // console.log(res.data)
-        const user = res.data;
-        setCurrentUser(user);
-        setRole(user.level); // Atur role berdasarkan level dari data user
-        console.log(user);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    if (pathname.includes("/update")) {
+      axios
+        .get(`/users/${id}`)
+        .then((res) => {
+          // console.log(res.data)
+          const user = res.data;
+          setCurrentUser(user);
+          setRole(user.level); // Atur role berdasarkan level dari data user
+          console.log(user);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
   }, [id]);
 
   const handleRoleChange = (event) => {
     setRole(event.target.value);
   };
 
-  function handleUpdateAll(e) {
+  function handleSubmitForm(e) {
     e.preventDefault();
-    console.log("Updating with data:", {
-      username: e.target.username.value,
-      level: parseInt(role), // Confirm this matches what the backend expects
-    });
 
-    axios
-      .put(`/users/${id}`, {
-        username: e.target.username.value,
-        password: e.target.password.value,
-        level: role,
-      })
-      .then((res) => {
-        window.location = "/data_user";
-        // console.log(res);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    if (pathname.includes("/update")) {
+      axios
+        .put(`/users/${id}`, {
+          username: e.target.username.value,
+          password: e.target.password.value,
+          level: role,
+        })
+        .then((res) => {
+          window.location = "/data_user";
+          // console.log(res);
+        })
+        .catch((err) => {
+          Swal.fire({
+            title: "Error!",
+            text: err.response.data.message,
+            icon: "error",
+            confirmButtonText: "Tutup",
+          });
+        });
+    } else {
+      axios
+        .post(`/users/create`, {
+          username: e.target.username.value,
+          password: e.target.password.value,
+          level: role,
+        })
+        .then((res) => {
+          window.location = "/data_user";
+        })
+        .catch((err) => {
+          Swal.fire({
+            title: "Error!",
+            text: err.response.data.message,
+            icon: "error",
+            confirmButtonText: "Tutup",
+          });
+        });
+    }
   }
 
   return (
@@ -59,9 +85,12 @@ export const EditDataUser = () => {
       <div className="main">
         <form
           className="p-5 w-full bg-blue_dark text-white bg-opacity-90 rounded-lg"
-          onSubmit={handleUpdateAll}
+          onSubmit={handleSubmitForm}
         >
-          <h1 className="text-3xl font-bold pb-7">Update User</h1>
+          <h1 className="text-3xl font-bold pb-7">
+            {pathname.includes("/update") ? "Update " : "Add "}
+            User
+          </h1>
 
           <div className="flex flex-col mb-5">
             <label htmlFor="username" className="p-2">
@@ -108,7 +137,7 @@ export const EditDataUser = () => {
               Kembali
             </Link>
             <button type="submit" className="p-4 py-2 rounded bg-blue">
-              Update
+              Kirim
             </button>
           </div>
         </form>

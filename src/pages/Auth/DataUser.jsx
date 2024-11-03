@@ -15,20 +15,32 @@ export function DataUser() {
     console.log(e.target.id_user.value);
     console.log(e.target.username.value);
     Swal.fire({
-      title: "Yakin Ingin Menghapus User? ",
-      text: "Kelas yang hilang tidak bisa dikembalikan!",
+      title: `Yakin Ingin Menghapus User "${e.target.username.value}"? `,
+      text: "User yang dihapus tidak bisa dikembalikan!",
       icon: "warning",
       showCancelButton: true,
-      confirmButtonColor: "#3085d6",
-      cancelButtonColor: "#d33",
+      confirmButtonColor: "#d33",
+      cancelButtonColor: "#3085d6",
       confirmButtonText: "Yes, delete it!",
     }).then((result) => {
       if (result.isConfirmed) {
-        Swal.fire({
-          title: "Deleted!",
-          text: "Your file has been deleted.",
-          icon: "success",
-        });
+        axios
+          .delete(`/users/${e.target.id_user.value}`)
+          .then((res) => {
+            Swal.fire({
+              title: "Deleted!",
+              text: "Your file has been deleted.",
+              icon: "success",
+            });
+          })
+          .catch((err) => {
+            Swal.fire({
+              title: "Error!",
+              text: err.response.data.message,
+              icon: "error",
+              confirmButtonText: "Tutup",
+            });
+          });
       }
     });
   }
@@ -50,7 +62,28 @@ export function DataUser() {
     <AuthGuard>
       <Navbar />
       <Sidebar />
-      <div className="main">
+      <div className="main flex-col gap-1">
+        <Link
+          to={"add"}
+          className="bg-green text-white font-bold px-4 py-3 mx-5 rounded flex justify-between align-middle"
+        >
+          {" "}
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            strokeWidth={2.5}
+            stroke="currentColor"
+            className="size-6"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              d="M12 4.5v15m7.5-7.5h-15"
+            />
+          </svg>
+          <span className="px-2">Add user</span>
+        </Link>
         <table className="table w-full">
           <thead>
             <tr>

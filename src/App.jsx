@@ -22,6 +22,7 @@ function App() {
           <Route path="/kelas" element={<Kelas />} />
           <Route path="/data_presensi" element={<DataPresensi />} />
           <Route path="/data_user" element={<DataUser />} />
+          <Route path="/data_user/add" element={<EditDataUser />} />
           <Route path="/data_user/update/:id" element={<EditDataUser />} />
           <Route path="/unpre" element={<Unpresensied />} />
           <Route path="/unpre" element={<Unpresensied />} />
