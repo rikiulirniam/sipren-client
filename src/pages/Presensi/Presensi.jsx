@@ -48,6 +48,9 @@ function Presensi() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+
+    window.location = 'presensi/1'
+
     console.log("Tingkat:", current.tingkat);
     console.log("Jurusan:", current.jurusan);
     console.log("No. Kelas:", e.target.no_kelas.value);

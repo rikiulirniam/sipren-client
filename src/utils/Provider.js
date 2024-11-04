@@ -43,3 +43,16 @@ export function formatDate(date) {
   const options = { day: "numeric", month: "long", year: "numeric" };
   return date.toLocaleDateString("id-ID", options);
 }
+export function formatDateTime(date) {
+  const options = {
+    hour: "numeric",
+    minute: "numeric",
+    second: "numeric",
+    day: "numeric",
+    month: "long",
+    year: "numeric",
+  };
+  return (
+    date.toLocaleTimeString("id-ID", options)
+  );
+}

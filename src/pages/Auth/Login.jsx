@@ -6,6 +6,7 @@ import Swal from "sweetalert2";
 function Login() {
   const axios = useAxios();
   const navigate = useNavigate();
+  const auth = useAuth();
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -18,7 +19,7 @@ function Login() {
       .then((res) => {
         setEncryptedData("token", res.data.accessToken);
         setEncryptedData("user", res.data.user); // simpan user langsung
-        navigate("/dashboard");
+        window.location = '/dashboard';
       })
       .catch((err) => {
         Swal.fire({

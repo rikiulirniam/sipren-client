@@ -20,7 +20,7 @@ function Navbar() {
       })
       .catch((err) => console.log(err));
   }
-
+ 
   return (
     <>
       <header className="header">
@@ -30,8 +30,8 @@ function Navbar() {
           </h3>
           <div>
             <div className="user">
-              <p>{auth.user.level ? auth.user.username : auth.user.nama}</p>
-              <span>{auth.user.level? "Admin" : "Guru"}</span>
+              <p>{auth.user.nama}</p>
+              <span>{auth.user.level ? "Admin" : "Guru"}</span>
             </div>
             <button>
               <svg
@@ -100,33 +100,34 @@ function Navbar() {
                       method="POST"
                       className="flex border-1 justify-between"
                     >
-                      <input
-                        className="font-bold w-28 cursor-pointer"
+                      <button
+                        className="font-bold w-28 cursor-pointer flex justify-between"
                         type="submit"
-                        value="Logout"
-                      />
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="24"
-                        height="24"
-                        viewBox="0 0 24 24"
-                        fill="none"
                       >
-                        <path
-                          d="M11.8518 12.0195H21.7037M21.7037 12.0195L17.4814 15.3594M21.7037 12.0195L17.4814 8.67969"
-                          stroke="black"
-                          strokeWidth="3"
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                        />
-                        <path
-                          d="M21.7037 5.33984V4.22656C21.7037 2.99687 20.4435 2 18.8889 2H4.81481C3.26023 2 2 2.99687 2 4.22656V19.8125C2 21.0422 3.26023 22.0391 4.81481 22.0391H18.8889C20.4435 22.0391 21.7037 21.0422 21.7037 19.8125V18.6992"
-                          stroke="black"
-                          strokeWidth="3"
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                        />
-                      </svg>
+                        Logout
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="24"
+                          height="24"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                        >
+                          <path
+                            d="M11.8518 12.0195H21.7037M21.7037 12.0195L17.4814 15.3594M21.7037 12.0195L17.4814 8.67969"
+                            stroke="black"
+                            strokeWidth="3"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                          />
+                          <path
+                            d="M21.7037 5.33984V4.22656C21.7037 2.99687 20.4435 2 18.8889 2H4.81481C3.26023 2 2 2.99687 2 4.22656V19.8125C2 21.0422 3.26023 22.0391 4.81481 22.0391H18.8889C20.4435 22.0391 21.7037 21.0422 21.7037 19.8125V18.6992"
+                            stroke="black"
+                            strokeWidth="3"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                          />
+                        </svg>
+                      </button>
                     </form>
                   </div>
                 </div>

@@ -227,7 +227,7 @@ function Sidebar() {
                 </Link>
               </li>
 
-              {auth.user.level && (
+              {auth.user.level == 1 && (
                 <>
                   <li
                     className={pathname.includes("/data_user") ? "active" : ""}

@@ -6,14 +6,7 @@ import { AuthGuard } from "../../utils/AuthGuard";
 import { DateTime } from "../../components/Timer/DateTime";
 
 function Guru() {
-
   const auth = useAuth();
-
-
-  useEffect(() => {
-    // console.log(auth);
-  }, []);
-  // const [user, setUser] = useState();
 
   return (
     <AuthGuard>
@@ -23,10 +16,10 @@ function Guru() {
         <div className="d-flex justify-center items-center">
           <div className="main">
             <div className="welcome-selayang">
-              <div className="card welcome shadow">
-                  <span className="pe-2"> Selamat Datang, </span>
-                <div className="flex text-[1.8em] font-bold">
-                  <h3> Bapak/Ibu Guru</h3>
+              <div className="card welcome shadow items-center flex">
+                <span className="pe-2"> Selamat Datang, </span>
+                <div className="flex text-[1.5em] font-bold">
+                  <h4> {auth?.user?.level ? "Admin" : "Bapak/Ibu Guru"}</h4>
                 </div>
               </div>
 

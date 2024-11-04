@@ -65,7 +65,7 @@ export function DataUser() {
       <div className="main flex-col gap-1">
         <Link
           to={"add"}
-          className="bg-green text-white font-bold px-4 py-3 mx-5 rounded flex justify-between align-middle"
+          className="bg-green text-white border-2 border-black font-bold px-4 py-3 mx-5 rounded flex justify-between align-middle"
         >
           {" "}
           <svg
@@ -87,6 +87,7 @@ export function DataUser() {
         <table className="table w-full">
           <thead>
             <tr>
+              <th>Nama</th>
               <th>Username</th>
               <th>Role</th>
               <th>Aksi</th>
@@ -97,6 +98,7 @@ export function DataUser() {
               users.map((user, key) => {
                 return (
                   <tr key={key}>
+                    <td>{user.nama}</td>
                     <td>{user.username}</td>
                     <td>{user.level == 1 ? "Admin" : "Guru"}</td>
                     <td>

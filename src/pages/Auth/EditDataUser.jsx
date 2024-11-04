@@ -41,6 +41,7 @@ export const EditDataUser = () => {
     if (pathname.includes("/update")) {
       axios
         .put(`/users/${id}`, {
+          nama: e.target.nama.value,
           username: e.target.username.value,
           password: e.target.password.value,
           level: role,
@@ -60,6 +61,7 @@ export const EditDataUser = () => {
     } else {
       axios
         .post(`/users/create`, {
+          nama: e.target.nama.value,
           username: e.target.username.value,
           password: e.target.password.value,
           level: role,
@@ -91,6 +93,20 @@ export const EditDataUser = () => {
             {pathname.includes("/update") ? "Update " : "Add "}
             User
           </h1>
+
+          <div className="flex flex-col mb-5">
+            <label htmlFor="nama" className="p-2">
+              Nama :{" "}
+            </label>
+            <input
+              type="text"
+              id="nama"
+              name="nama"
+              placeholder="Input your name..."
+              className="text-blue_dark rounded p-2 px-3"
+              defaultValue={currentUser ? currentUser.username : ""}
+            />
+          </div>
 
           <div className="flex flex-col mb-5">
             <label htmlFor="username" className="p-2">
