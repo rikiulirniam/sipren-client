@@ -38,6 +38,14 @@ export const EditDataUser = () => {
   function handleSubmitForm(e) {
     e.preventDefault();
 
+    // console.log({
+    //   nama: e.target.nama.value,
+    //   username: e.target.username.value,
+    //   password: e.target.password.value,
+    //   level: role,
+    // });
+
+    // return;
     if (pathname.includes("/update")) {
       axios
         .put(`/users/${id}`, {
@@ -48,7 +56,7 @@ export const EditDataUser = () => {
         })
         .then((res) => {
           window.location = "/data_user";
-          // console.log(res);
+          console.log(res);
         })
         .catch((err) => {
           Swal.fire({
@@ -104,7 +112,7 @@ export const EditDataUser = () => {
               name="nama"
               placeholder="Input your name..."
               className="text-blue_dark rounded p-2 px-3"
-              defaultValue={currentUser ? currentUser.username : ""}
+              defaultValue={currentUser ? currentUser.nama : ""}
             />
           </div>
 
