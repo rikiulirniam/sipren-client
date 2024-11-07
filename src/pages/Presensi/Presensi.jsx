@@ -30,8 +30,8 @@ function Presensi() {
 
   const handleChangeNoKelas = (e) => {
     axios
-      .get(`/kelas/detail?id_kelas=${e.target.value}`)
-      .then((res) => {
+
+    .then((res) => {
         console.log(res);
         // setCurrent({ ...current, kelas: e.target.value  });
       })
@@ -49,7 +49,7 @@ function Presensi() {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    window.location = 'presensi/1'
+    window.location = "presensi/1";
 
     console.log("Tingkat:", current.tingkat);
     console.log("Jurusan:", current.jurusan);
@@ -219,6 +219,36 @@ function Presensi() {
                           ) : null
                         )}
                   </select>
+                </div>
+              </div>
+            </div>
+            <div className="flex-kelas-input flex gap-2 px-4 pb-4">
+              <div className="kelas-input w-full bg-orange_fade border-2 rounded pt-2 pb-4">
+                <h2 className="px-3">Jam Pelajaran:</h2>
+                <hr className="pb-2" />
+                <div className="parent-input-kelas flex justify-between px-5">
+                  <div className="input-kelas flex justify-between gap-1 px-2">
+                    <label htmlFor="jam_started">Jam ke-</label>
+                    <input
+                      type="number"
+                      id="jam_started"
+                      name="jam_started"
+                      min="1"
+                      max="14"
+                      className="px-2 rounded"
+                    />
+                  </div>
+                  <div className="input-kelas flex justify-between gap-1 px-2">
+                    <label htmlFor="jam_ended">Hingga Jam ke-</label>
+                    <input
+                      type="number"
+                      id="jam_ended"
+                      name="jam_ended"
+                      min="1"
+                      max="14"
+                      className="px-2 rounded"
+                    />
+                  </div>
                 </div>
               </div>
             </div>
