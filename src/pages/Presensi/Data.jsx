@@ -18,7 +18,7 @@ export function DataPresensi() {
       .catch((err) => {
         console.log(err);
       });
-  }, [axios]);
+  }, []);
 
   return (
     <AuthGuard>

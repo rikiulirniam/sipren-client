@@ -29,33 +29,42 @@ function Presensi() {
   };
 
   const handleChangeNoKelas = (e) => {
-    axios
-
-    .then((res) => {
-        console.log(res);
-        // setCurrent({ ...current, kelas: e.target.value  });
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-
-    //   console.log(e.target.value)
+    setCurrent({ ...current, no_kelas: e.target.value });
   };
 
   const handleJenisChange = (e) => {
     setIsProduktif(e.target.value === "produktif");
   };
 
+  const handleChangeMapel = (e) => {
+    setCurrent({ ...current, id_mapel: e.target.value });
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    window.location = "presensi/1";
-
-    console.log("Tingkat:", current.tingkat);
-    console.log("Jurusan:", current.jurusan);
-    console.log("No. Kelas:", e.target.no_kelas.value);
-    console.log("Judul Materi:", titleMatter);
-    console.log("Deskripsi Materi:", descriptionMatter);
+    axios
+      .post(`/presensi`, {
+        id_kelas: e.target.no_kelas.value,
+        id_user: auth.user.id_user,
+        id_mapel: e.target.mapel.value,
+        jam_started: e.target.jam_started.value,
+        jam_ended: e.target.jam_ended.value,
+        materi: e.target.materi.value,
+        deskripsi: e.target.deskripsi.value,
+      })
+      .then((res) => {
+        setCurrent({ ...current, id_presensi: res.data.data.id_presensi });
+        window.location = `presensi/${res.data.data.id_presensi}`;
+      })
+      .catch((err) => {
+        Swal.fire({
+          title: "Error!",
+          text: err.response.data.message,
+          icon: "error",
+          confirmButtonText: "Tutup",
+        });
+      });
   };
 
   useEffect(() => {
@@ -202,7 +211,11 @@ function Presensi() {
                   </div>
                 </div>
                 <div className="input-kelas flex justify-between mx-3 px-2">
-                  <select name="mapel" className="w-full px-3 py-2 rounded">
+                  <select
+                    name="mapel"
+                    onChange={handleChangeMapel}
+                    className="w-full px-3 py-2 rounded"
+                  >
                     {isProduktif
                       ? mapel.map((map, key) =>
                           map.produktif === 1 ? (
@@ -227,7 +240,7 @@ function Presensi() {
                 <h2 className="px-3">Jam Pelajaran:</h2>
                 <hr className="pb-2" />
                 <div className="parent-input-kelas flex justify-between px-5">
-                  <div className="input-kelas flex justify-between gap-1 px-2">
+                  <div className="input-kelas flex items-center justify-between gap-1 px-2">
                     <label htmlFor="jam_started">Jam ke-</label>
                     <input
                       type="number"
@@ -235,10 +248,10 @@ function Presensi() {
                       name="jam_started"
                       min="1"
                       max="14"
-                      className="px-2 rounded"
+                      className="px-2 py-1 rounded"
                     />
                   </div>
-                  <div className="input-kelas flex justify-between gap-1 px-2">
+                  <div className="input-kelas flex items-center justify-between gap-1 px-2">
                     <label htmlFor="jam_ended">Hingga Jam ke-</label>
                     <input
                       type="number"
@@ -246,7 +259,7 @@ function Presensi() {
                       name="jam_ended"
                       min="1"
                       max="14"
-                      className="px-2 rounded"
+                      className="px-2 py-1 rounded"
                     />
                   </div>
                 </div>
@@ -263,6 +276,7 @@ function Presensi() {
                 <textarea
                   style={{ resize: "none" }}
                   className="h-full"
+                  name="materi"
                   placeholder="Isi judul materi"
                   value={titleMatter}
                   onChange={(e) => setTitleMatter(e.target.value)}
@@ -276,6 +290,7 @@ function Presensi() {
                 <textarea
                   style={{ height: "200px", resize: "none" }}
                   placeholder="Isi Deskripsi...."
+                  name="deskripsi"
                   value={descriptionMatter}
                   onChange={(e) => setDescriptionMatter(e.target.value)}
                 ></textarea>

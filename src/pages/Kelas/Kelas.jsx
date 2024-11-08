@@ -72,7 +72,6 @@ export function Kelas() {
             <tr>
               <th colSpan={1}>No.</th>
               <th colSpan={4}>Kelas</th>
-              <th colSpan={5}>Jurusan</th>
               <th colSpan={3}>Aksi</th>
             </tr>
           </thead>
@@ -84,7 +83,6 @@ export function Kelas() {
                   <td
                     colSpan={4}
                   >{`${kls.tingkat} ${kls.akronim} ${kls.no_kelas}`}</td>
-                  <td colSpan={5}>{`${kls.nama_jurusan}`}</td>
                   <td colSpan={3}>
                     <div className="flex gap-2 justify-center">
                       <a

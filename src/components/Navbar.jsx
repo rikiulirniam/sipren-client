@@ -66,7 +66,7 @@ function Navbar() {
                     className="d-flex justify-between items-center"
                     style={{ gap: "10px" }}
                   >
-                    <h3>Riki</h3>
+                    <p className="font-bold text-black">{auth?.user?.nama}</p>
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       width="50"

@@ -12,6 +12,9 @@ import { Kelas } from "./pages/Kelas/Kelas.jsx";
 import { EditDataUser } from "./pages/Auth/EditDataUser.jsx";
 import { PresensiStarted } from "./pages/Presensi/PresensiStarted.jsx";
 import { EditKelas } from "./pages/Kelas/EditKelas.jsx";
+import RfidReader from "./utils/RFID/RfidReader.jsx";
+import { Siswa } from "./pages/Siswa/Siswa.jsx";
+import { EditSiswa } from "./pages/Siswa/EditSiswa.jsx";
 
 function App() {
   return (
@@ -29,11 +32,17 @@ function App() {
           <Route path="/kelas/add" element={<EditKelas />} />
 
           <Route path="/data_presensi" element={<DataPresensi />} />
+
           <Route path="/data_user" element={<DataUser />} />
           <Route path="/data_user/add" element={<EditDataUser />} />
           <Route path="/data_user/update/:id" element={<EditDataUser />} />
 
+          <Route path="/siswa" element={<Siswa />} />
+          <Route path="/siswa/add" element={<EditSiswa />} />
+          <Route path="/siswa/update/:nis" element={<EditSiswa />} />
+
           <Route path="/unpre" element={<Unpresensied />} />
+          <Route path="/rfid" element={<RfidReader />} />
           <Route path="/temp" element={<TimeComponent />} />
         </Routes>
       </BrowserRouter>
