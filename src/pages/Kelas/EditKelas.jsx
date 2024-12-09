@@ -13,7 +13,7 @@ export const EditKelas = () => {
   const [jurusan, setJurusan] = useState([]);
   const [current, setCurrent] = useState({
     tingkat: "X",
-    jurusan: 1
+    jurusan: 1,
   });
   const pathname = window.location.pathname;
 
@@ -41,7 +41,7 @@ export const EditKelas = () => {
           no_kelas: current.no_kelas,
         })
         .then((res) => {
-          window.location = "/kelas";
+          window.location = `/kelas/${id}/addsiswa`;
         })
         .catch((err) => {
           Swal.fire({
@@ -52,21 +52,44 @@ export const EditKelas = () => {
           });
         });
     } else {
-      console.log({
-        id_jurusan: current.jurusan,
-          tingkat: current.tingkat,
-          no_kelas: current.no_kelas,
-      })
       axios
-        .post(`/kelas`, {
-          id_jurusan: current.jurusan,
-          tingkat: current.tingkat,
-          no_kelas: current.no_kelas,
-        })
+        .get(
+          `/kelas?id_jurusan=${current.jurusan}&tingkat=${current.tingkat}&no_kelas=${current.no_kelas}`
+        )
         .then((res) => {
-          window.location = "/kelas";
+          if (res.data.data[0]) {
+            console.log("lolos");
+
+            Swal.fire({
+              title: "Error!",
+              text: "Kelas sudah ada",
+              icon: "error",
+              confirmButtonText: "Tutup",
+            });
+          } else {
+            console.log("tdk lolos");
+
+            axios
+              .post(`/kelas`, {
+                id_jurusan: current.jurusan,
+                tingkat: current.tingkat,
+                no_kelas: current.no_kelas,
+              })
+              .then((res) => {
+                window.location = `/kelas/${id}/addsiswa`;
+              })
+              .catch((err) => {
+                Swal.fire({
+                  title: "Error!",
+                  text: err.response.data.message,
+                  icon: "error",
+                  confirmButtonText: "Tutup",
+                });
+              });
+          }
         })
         .catch((err) => {
+          console.log("error");
           Swal.fire({
             title: "Error!",
             text: err.response.data.message,

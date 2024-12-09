@@ -52,6 +52,7 @@ export function DataUser() {
       })
       .then((res) => {
         setUsers(res.data.data);
+        console.log(res.data.data)
       })
       .catch((err) => {
         console.log(err);

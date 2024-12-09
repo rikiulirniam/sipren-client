@@ -33,12 +33,11 @@ function RfidReader() {
 
   return (
     <div className="main">
-        <div className="dd text-white">
-
-      <h2>RFID Scanner</h2>
-      <p>Data RFID Tersimpan: {rfidData}</p>
-      <p>Data Terakhir Dipindai: {scannedData}</p>
-        </div>
+      <div className="dd text-white">
+        <h2>RFID Scanner</h2>
+        <p>Data RFID Tersimpan: {rfidData}</p>
+        <p>Data Terakhir Dipindai: {scannedData}</p>
+      </div>
     </div>
   );
 }

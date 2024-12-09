@@ -17,10 +17,10 @@ function Login() {
         password: e.target.password.value,
       })
       .then((res) => {
-        console.log(res.data)
+        console.log(res.data);
         setEncryptedData("token", res.data.accessToken);
         setEncryptedData("user", res.data.user); // simpan user langsung
-        window.location = '/dashboard';
+        window.location = "/dashboard";
       })
       .catch((err) => {
         Swal.fire({
@@ -55,7 +55,7 @@ function Login() {
             <path
               d="M14.75 40.6703V38.3203C14.75 31.831 20.0107 26.5703 26.5 26.5703C32.9893 26.5703 38.25 31.831 38.25 38.3203V40.6703"
               stroke="black"
-              strokeWidth="5"
+              strokeWidth="5" 
               strokeLinecap="round"
             />
             <path

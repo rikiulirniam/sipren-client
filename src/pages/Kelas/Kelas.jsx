@@ -22,11 +22,25 @@ export function Kelas() {
       confirmButtonText: "Yes, delete it!",
     }).then((result) => {
       if (result.isConfirmed) {
-        Swal.fire({
-          title: "Deleted!",
-          text: "Your file has been deleted.",
-          icon: "success",
-        });
+        axios
+          .delete(`/kelas/${e.target.value}`)
+          .then((res) => {
+            Swal.fire({
+              title: "Deleted!",
+              text: "Your file has been deleted.",
+              icon: "success",
+            }).then(() => {
+              window.location.reload();
+            });
+          })
+          .catch((err) => {
+            Swal.fire({
+              title: "Error!",
+              text: err.response.data.message,
+              icon: "error",
+              confirmButtonText: "Tutup",
+            });
+          });
       }
     });
   }

@@ -7,7 +7,7 @@ import { useAxios } from "../../utils/Provider";
 import Swal from "sweetalert2";
 
 export const EditSiswa = () => {
-  const { nis } = useParams();
+  const { nis, id_kelas } = useParams();
   const axios = useAxios();
   const [current, setCurrent] = useState({
     rfid: "",
@@ -35,7 +35,7 @@ export const EditSiswa = () => {
       nama: current.nama,
       nis: current.nis,
       jenis_kelamin: current.jenis_kelamin,
-      id_kelas: current.kelas,
+      id_kelas: id_kelas,
     };
 
     if (pathname.includes("/update")) {
@@ -152,7 +152,7 @@ export const EditSiswa = () => {
             />
           </div>
 
-          <div className="flex flex-col mb-5">
+          {/* <div className="flex flex-col mb-5">
             <label htmlFor="jenis_kelamin" className="p-2">
               Jenis Kelamin :
             </label>
@@ -166,7 +166,7 @@ export const EditSiswa = () => {
               <option value="1">Laki-Laki</option>
               <option value="0">Perempuan</option>
             </select>
-          </div>
+          </div> */}
 
           <div className="flex float-end gap-3">
             <Link to="/siswa" className="p-4 py-2 rounded bg-red">

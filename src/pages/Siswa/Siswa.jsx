@@ -57,7 +57,6 @@ export function Siswa() {
               <th>Nama</th>
               <th>NIS</th>
               <th>Kelas</th>
-              <th>Jenis Kelamin</th>
               <th>RFID ID</th>
               <th>Aksi</th>
             </tr>
@@ -69,7 +68,6 @@ export function Siswa() {
                   <td>{s.nama}</td>
                   <td>{s.nis}</td>
                   <td>{`${s.tingkat} ${s.akronim} ${s.no_kelas}`}</td>
-                  <td>{s.jenis_kelamin == 1 ? "Laki-Laki" : "Perempuan"}</td>
                   <td>{s.rfid}</td>
                   <td className="flex gap-2 justify-center">
                     <a

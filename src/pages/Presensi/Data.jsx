@@ -30,8 +30,10 @@ export function DataPresensi() {
           <thead>
             <tr>
               <th>Waktu</th>
-              <th>Materi</th>
+              <th>Kelas</th>
               <th>Nama Guru</th>
+              <th>Materi</th>
+              <th>Deskripsi</th>
             </tr>
           </thead>
           <tbody>
@@ -39,8 +41,10 @@ export function DataPresensi() {
               presensi.map((pre, i) => (
                 <tr key={i}>
                   <td>{formatDateTime(new Date(pre.hari_tanggal))}</td>
-                  <td>{pre.nama_materi}</td>
+                  <td>{`${pre.tingkat} ${pre.akronim} ${pre.no_kelas}`}</td>
                   <td>{pre.nama}</td>
+                  <td>{pre.nama_materi}</td>
+                  <td>{pre.deskripsi}</td>
                 </tr>
               ))}
           </tbody>
