@@ -86,7 +86,7 @@ function Presensi() {
       .catch((err) => {
         console.log(err);
       });
-  }, [current]);
+  }, [current.kelas]);
 
   useEffect(() => {
     if (auth.user.level) {
