@@ -20,7 +20,7 @@ function Navbar() {
       })
       .catch((err) => console.log(err));
   }
- 
+
   return (
     <>
       <header className="header">
