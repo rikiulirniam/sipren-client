@@ -31,7 +31,7 @@ export function DataPresensi() {
             <tr>
               <th>Waktu</th>
               <th>Kelas</th>
-              <th colSpan={2}>Nama Guru</th>
+              <th>Nama Guru</th>
               <th>Materi</th>
               <th>Deskripsi</th>
             </tr>
@@ -42,7 +42,7 @@ export function DataPresensi() {
                 <tr key={i}>
                   <td>{formatDateTime(new Date(pre.hari_tanggal))}</td>
                   <td>{`${pre.tingkat} ${pre.akronim} ${pre.no_kelas}`}</td>
-                  <td  colSpan={2}>{pre.nama}</td>
+                  <td>{pre.nama}</td>
                   <td>{pre.nama_materi}</td>
                   <td>{pre.deskripsi}</td>
                 </tr>

@@ -77,7 +77,8 @@ export const EditKelas = () => {
                 no_kelas: current.no_kelas,
               })
               .then((res) => {
-                window.location = `/kelas/${id}/addsiswa`;
+                console.log(res.data);
+                window.location = `/kelas/${res.data.kelas_id}/addsiswa`;
               })
               .catch((err) => {
                 Swal.fire({
@@ -207,7 +208,7 @@ export const EditKelas = () => {
 
             <div className="flex flex-col w-24">
               <label htmlFor="no_kelas" className="p-2">
-                No Kelas:   
+                No Kelas:
               </label>
               <input
                 type="number"

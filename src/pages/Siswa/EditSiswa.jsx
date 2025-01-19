@@ -9,6 +9,7 @@ import Swal from "sweetalert2";
 export const EditSiswa = () => {
   const { nis, id_kelas } = useParams();
   const axios = useAxios();
+  const param = useParams();
   const [current, setCurrent] = useState({
     rfid: "",
     nama: "",
@@ -42,7 +43,7 @@ export const EditSiswa = () => {
       axios
         .put(`/siswa/${nis}`, payload)
         .then((res) => {
-          window.location = "/siswa";
+          window.location = param;
         })
         .catch((err) => {
           Swal.fire({
@@ -56,7 +57,7 @@ export const EditSiswa = () => {
       axios
         .post(`/siswa`, payload)
         .then((res) => {
-          window.location = "/siswa";
+          window.location.reload();
         })
         .catch((err) => {
           console.log(payload);
@@ -152,24 +153,8 @@ export const EditSiswa = () => {
             />
           </div>
 
-          {/* <div className="flex flex-col mb-5">
-            <label htmlFor="jenis_kelamin" className="p-2">
-              Jenis Kelamin :
-            </label>
-            <select
-              id="jenis_kelamin"
-              name="jenis_kelamin"
-              onChange={handleChangeTingkat}
-              value={current.jenis_kelamin}
-              className="text-blue_dark rounded p-2 px-3 w-2/12"
-            >
-              <option value="1">Laki-Laki</option>
-              <option value="0">Perempuan</option>
-            </select>
-          </div> */}
-
           <div className="flex float-end gap-3">
-            <Link to="/siswa" className="p-4 py-2 rounded bg-red">
+            <Link to="/kelas" className="p-4 py-2 rounded bg-red">
               Kembali
             </Link>
             <button type="submit" className="p-4 py-2 rounded bg-blue">
