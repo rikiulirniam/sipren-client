@@ -9,9 +9,7 @@ import Swal from "sweetalert2";
 export const EditSiswa = () => {
   const { id } = useParams();
   const axios = useAxios();
-  const [kelas, setKelas] = useState(null);
-  const [siswa, setSiswa] = useState();
-  const [jurusan, setJurusan] = useState([]);
+  const param = useParams();
   const [current, setCurrent] = useState({
     tingkat: "X",
     jurusan: 1,
@@ -42,7 +40,7 @@ export const EditSiswa = () => {
           no_kelas: current.no_kelas,
         })
         .then((res) => {
-          window.location = `/kelas/${id}/addsiswa`;
+          window.location = param;
         })
         .catch((err) => {
           Swal.fire({
@@ -58,36 +56,7 @@ export const EditSiswa = () => {
           `/kelas?id_jurusan=${current.jurusan}&tingkat=${current.tingkat}&no_kelas=${current.no_kelas}`
         )
         .then((res) => {
-          if (res.data.data[0]) {
-            console.log("lolos");
-
-            Swal.fire({
-              title: "Error!",
-              text: "Kelas sudah ada",
-              icon: "error",
-              confirmButtonText: "Tutup",
-            });
-          } else {
-            console.log("tdk lolos");
-
-            axios
-              .post(`/kelas`, {
-                id_jurusan: current.jurusan,
-                tingkat: current.tingkat,
-                no_kelas: current.no_kelas,
-              })
-              .then((res) => {
-                window.location = `/kelas/${id}/addsiswa`;
-              })
-              .catch((err) => {
-                Swal.fire({
-                  title: "Error!",
-                  text: err.response.data.message,
-                  icon: "error",
-                  confirmButtonText: "Tutup",
-                });
-              });
-          }
+          window.location.reload();
         })
         .catch((err) => {
           console.log("error");
@@ -221,8 +190,9 @@ export const EditSiswa = () => {
               />
             </div>
           </div>
-          <div className="flex items-end float-end pe-10 gap-3">
-            <Link to="/kelas" className="px-4 py-2 rounded bg-red">
+
+          <div className="flex float-end gap-3">
+            <Link to="/kelas" className="p-4 py-2 rounded bg-red">
               Kembali
             </Link>
             <button type="submit" className="px-4 py-2 rounded bg-blue">
