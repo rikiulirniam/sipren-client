@@ -103,7 +103,7 @@ export function Kelas() {
                         href={"/kelas/update/" + kls.id_kelas}
                         className="bg-orange_scale py-1 px-4 rounded"
                       >
-                        Edit
+                        Detail
                       </a>
                       <button
                         onClick={handleDeleteKelas}

@@ -126,12 +126,13 @@ export const EditKelas = () => {
             window.location = "/kelas";
           });
         });
-    }
-
+        
+      }
     axios
       .get(`/siswa?id_kelas=${id}`)
       .then((res) => {
         setSiswa(res.data.data);
+        console.log(siswa )
       })
       .catch((err) => {
         Swal.fire({
@@ -225,8 +226,8 @@ export const EditKelas = () => {
             <Link to="/kelas" className="px-4 py-2 rounded bg-red">
               Kembali
             </Link>
-            <button type="submit" className="px-4 py-2 rounded bg-blue">
-              Kirim
+            <button type="submit" className="px-4 py-2 rounded bg-green">
+                Simpan
             </button>
           </div>
         </form>

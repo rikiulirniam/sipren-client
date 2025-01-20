@@ -363,7 +363,7 @@ function Sidebar() {
                       )}
                     </Link>
                   </li>
-                  <li className={pathname.includes("/siswa") ? "active" : ""}>
+                  {/* <li className={pathname.includes("/siswa") ? "active" : ""}>
                     <Link to="/siswa">
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
@@ -428,7 +428,7 @@ function Sidebar() {
                         </svg>
                       )}
                     </Link>
-                  </li>
+                  </li> */}
                 </>
               )}
             </ul>
