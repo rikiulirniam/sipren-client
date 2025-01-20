@@ -35,7 +35,6 @@ export const EditSiswa = () => {
       rfid: current.rfid,
       nama: current.nama,
       nis: current.nis,
-      jenis_kelamin: current.jenis_kelamin,
       id_kelas: id_kelas,
     };
 

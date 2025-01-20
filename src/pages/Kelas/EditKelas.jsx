@@ -7,7 +7,7 @@ import { useAxios } from "../../utils/Provider";
 import Swal from "sweetalert2";
 
 export const EditKelas = () => {
-  const { id } = useParams();
+  const { id, id_kelas } = useParams();
   const axios = useAxios();
   const [kelas, setKelas] = useState(null);
   const [siswa, setSiswa] = useState();
@@ -26,14 +26,31 @@ export const EditKelas = () => {
     setCurrent({ ...current, tingkat: e.target.value });
   };
 
+  const handleAddKelas = (e) => {
+    e.preventDefault();
+    axios
+      .post(`/siswa`, {
+        nama: e.target.nama.value,
+        nis: e.target.nis.value,
+        rfid: e.target.rfid.value,
+        id_kelas: id,
+      })
+      .then((res) => {
+        window.location.reload();
+      })
+      .catch((err) => {
+        Swal.fire({
+          title: "Error!",
+          text: err.response?.data?.message || "Terjadi kesalahan",
+          icon: "error",
+          confirmButtonText: "Tutup",
+        });
+      });
+  };
+
   const handleSubmitForm = (e) => {
     e.preventDefault();
 
-    console.log({
-      id_jurusan: parseInt(current.jurusan),
-      tingkat: current.tingkat,
-      no_kelas: parseInt(current.no_kelas),
-    });
     if (pathname.includes("/update")) {
       axios
         .put(`/kelas/${id}`, {
@@ -232,6 +249,59 @@ export const EditKelas = () => {
             </button>
           </div>
         </form>
+        {id && (
+          <form
+            className="p-5 w-full bg-blue_dark text-white bg-opacity-90 rounded-lg"
+            onSubmit={handleAddKelas}
+          >
+            <h1 className="text-3xl flex self-center font-bold">Add Siswa</h1>
+            <div className="content-form flex justify-between items-end gap-x-10">
+              <div className="flex gap-x-10">
+                <div className="flex flex-col ">
+                  <label htmlFor="nama" className="p-2">
+                    Nama :
+                  </label>
+                  <input
+                    type="text"
+                    id="nama"
+                    name="nama"
+                    className="text-blue_dark rounded p-2 px-3"
+                  />
+                </div>
+                <div className="flex flex-col ">
+                  <label htmlFor="nis" className="p-2">
+                    NIS :
+                  </label>
+                  <input
+                    type="text"
+                    id="nis"
+                    name="nis"
+                    className="text-blue_dark rounded p-2 px-3"
+                  />
+                </div>
+                <div className="flex flex-col ">
+                  <label htmlFor="rfid" className="p-2">
+                    RFID :
+                  </label>
+                  <input
+                    type="text"
+                    id="rfid"
+                    name="rfid"
+                    className="text-blue_dark rounded p-2 px-3"
+                  />
+                </div>
+              </div>
+              <div className="flex items-center  float-end pe-10 gap-3">
+                <Link to="/kelas" className="px-4 py-2 rounded bg-red">
+                  Kembali
+                </Link>
+                <button type="submit" className="px-4 py-2 rounded bg-blue">
+                  Kirim
+                </button>
+              </div>
+            </div>
+          </form>
+        )}
         <table className="w-full table">
           <thead>
             <tr>
