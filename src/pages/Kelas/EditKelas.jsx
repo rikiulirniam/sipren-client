@@ -10,6 +10,7 @@ export const EditKelas = () => {
   const { id, id_kelas } = useParams();
   const axios = useAxios();
   const [kelas, setKelas] = useState(null);
+  const [file, setFile] = useState(null);
   const [siswa, setSiswa] = useState();
   const [jurusan, setJurusan] = useState([]);
   const [current, setCurrent] = useState({
@@ -25,6 +26,42 @@ export const EditKelas = () => {
   const handleChangeTingkat = (e) => {
     setCurrent({ ...current, tingkat: e.target.value });
   };
+  
+  const handleFileChange = (e) => {
+    setFile(e.target.files[0]);
+  }
+
+  const handleUpload = async () => {
+    if(!file){
+      alert("Please select file");
+      return;
+    }
+
+    const formData = new FormData();
+    formData.append("csvFile", file);
+    formData.append("id_kelas", id);
+    console.log(formData);
+
+    try{
+      const response = await axios.post("http://127.0.0.1:8000/siswa/upload", formData, {
+        headers: {"Content-Type" : "multipart/form-data"},
+      }).then((res) => {
+        window.location.reload();
+      })
+      .catch((err) => {
+        Swal.fire({
+          title: "Error!",
+          text: err.response.data.message,
+          icon: "error",
+          confirmButtonText: "Tutup",
+        });
+      });
+      // alert("sudah mengirim");
+    }catch (err){
+      console.error("Error uploading file:", err);
+      // alert("File upload failed!");
+    }
+  }
 
   const handleAddKelas = (e) => {
     e.preventDefault();
@@ -250,57 +287,63 @@ export const EditKelas = () => {
           </div>
         </form>
         {id && (
-          <form
-            className="p-5 w-full bg-blue_dark text-white bg-opacity-90 rounded-lg"
-            onSubmit={handleAddKelas}
-          >
-            <h1 className="text-3xl flex self-center font-bold">Add Siswa</h1>
-            <div className="content-form flex justify-between items-end gap-x-10">
-              <div className="flex gap-x-10">
-                <div className="flex flex-col ">
-                  <label htmlFor="nama" className="p-2">
-                    Nama :
-                  </label>
-                  <input
-                    type="text"
-                    id="nama"
-                    name="nama"
-                    className="text-blue_dark rounded p-2 px-3"
-                  />
+          <div>
+            <form
+              className="p-5 w-full bg-blue_dark text-white bg-opacity-90 rounded-lg"
+              onSubmit={handleAddKelas}
+            >
+              <h1 className="text-3xl flex self-center font-bold">Add Siswa</h1>
+              <div className="content-form flex justify-between items-end gap-x-10">
+                <div className="flex gap-x-10">
+                  <div className="flex flex-col ">
+                    <label htmlFor="nama" className="p-2">
+                      Nama :
+                    </label>
+                    <input
+                      type="text"
+                      id="nama"
+                      name="nama"
+                      className="text-blue_dark rounded p-2 px-3"
+                    />
+                  </div>
+                  <div className="flex flex-col ">
+                    <label htmlFor="nis" className="p-2">
+                      NIS :
+                    </label>
+                    <input
+                      type="text"
+                      id="nis"
+                      name="nis"
+                      className="text-blue_dark rounded p-2 px-3"
+                    />
+                  </div>
+                  <div className="flex flex-col ">
+                    <label htmlFor="rfid" className="p-2">
+                      RFID :
+                    </label>
+                    <input
+                      type="text"
+                      id="rfid"
+                      name="rfid"
+                      className="text-blue_dark rounded p-2 px-3"
+                    />
+                  </div>
                 </div>
-                <div className="flex flex-col ">
-                  <label htmlFor="nis" className="p-2">
-                    NIS :
-                  </label>
-                  <input
-                    type="text"
-                    id="nis"
-                    name="nis"
-                    className="text-blue_dark rounded p-2 px-3"
-                  />
-                </div>
-                <div className="flex flex-col ">
-                  <label htmlFor="rfid" className="p-2">
-                    RFID :
-                  </label>
-                  <input
-                    type="text"
-                    id="rfid"
-                    name="rfid"
-                    className="text-blue_dark rounded p-2 px-3"
-                  />
+                <div className="flex items-center  float-end pe-10 gap-3">
+                  <Link to="/kelas" className="px-4 py-2 rounded bg-red">
+                    Kembali
+                  </Link>
+                  <button type="submit" className="px-4 py-2 rounded bg-blue">
+                    Kirim
+                  </button>
                 </div>
               </div>
-              <div className="flex items-center  float-end pe-10 gap-3">
-                <Link to="/kelas" className="px-4 py-2 rounded bg-red">
-                  Kembali
-                </Link>
-                <button type="submit" className="px-4 py-2 rounded bg-blue">
-                  Kirim
-                </button>
-              </div>
+            </form>
+            <div className="mt-3 bg-blue_dark rounded px-5 py-3 text-white">
+                <input type="file" accept=".csv" onChange={handleFileChange}/>
+                <button onClick={handleUpload} className="bg-blue px-4 py-2 rounded">Upload Csv</button>
             </div>
-          </form>
+          </div>
         )}
         <table className="w-full table">
           <thead>
